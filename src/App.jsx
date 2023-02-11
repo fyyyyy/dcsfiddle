@@ -24,7 +24,8 @@ function App() {
     env,
     state
   );
-  const command = useSearchParam("command");
+  const command = useSearchParam("command")
+  const storedScript = localStorage.getItem('dcs-fiddle-script');
   const editorRef = useRef(null);
   const { responses, submitting, submitCommand } = useDcsCommand();
   const greetingModal = useGreetingModal();
@@ -43,7 +44,7 @@ function App() {
                   theme="vs-dark"
                   defaultLanguage="lua"
                   defaultValue={
-                    (command && atob(command)) || "return env.mission.theatre"
+                    (command && atob(command)) || storedScript || "return env.mission.theatre"
                   }
                   onMount={handleEditorDidMount}
                   options={{
