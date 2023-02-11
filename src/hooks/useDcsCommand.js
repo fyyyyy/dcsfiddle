@@ -9,6 +9,7 @@ export const useDcsCommand = () => {
   const [responses, setResponses] = useState([]);
 
   const submitCommand = async (command) => {
+    localStorage.setItem('dcs-fiddle-script', command);
     try {
       setSubmitting(true);
       const { data } = await axios.get(
@@ -24,9 +25,10 @@ export const useDcsCommand = () => {
       ]);
     } catch (e) {
       showNotification({
-        title: "Failed to Submit Command",
-        message: e.toString(),
+        title: "Failed to Submit Command: " + e.message,
+        message: e.response.data.error,
         color: "red",
+        autoClose: false,
       });
     } finally {
       setSubmitting(false);
