@@ -23,6 +23,12 @@ export const ExploreNode = ({ k, v, scope }) => {
     exploreIcon = faSquare;
   }
 
+  function sortEntries(a, b) {
+    if (a[0].toLowerCase() < b[0].toLowerCase()) return -1;
+    else if (a[0].toLowerCase() > b[0].toLowerCase()) return 1;
+    else if (a[0].toLowerCase() === b[0].toLowerCase()) return 0;
+  }
+
   return (
     <List.Item
       icon={
@@ -44,7 +50,7 @@ export const ExploreNode = ({ k, v, scope }) => {
           </Text>
         </Group>
         <List>
-          {entries(data).map(([k, v], index) => (
+          {entries(data).sort(sortEntries).map(([k, v], index) => (
             <ExploreNode k={k} v={v} scope={myScope} />
           ))}
         </List>
